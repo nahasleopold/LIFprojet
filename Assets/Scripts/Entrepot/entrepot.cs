@@ -19,6 +19,12 @@ public class Entrepot : MonoBehaviour
     [SerializeField]
     private Transform rayonnages;
 
+    [Header("Test déplacement simple")]
+    [SerializeField]
+    private bool testerDeplacementSimple = false;
+
+    [SerializeField]
+    private Emplacement emplacementTest;
 
 
     [Header("Test V1")]
@@ -251,9 +257,49 @@ public class Entrepot : MonoBehaviour
 
     private void Start()
     {
+        // ==============================
+        // TEST SIMPLE SANS PIECE
+        // ==============================
+
+        if (testerDeplacementSimple)
+        {
+            if (robot == null)
+            {
+                Debug.LogError(
+                    "Aucun robot assigné."
+                );
+
+                return;
+            }
+
+            if (emplacementTest == null)
+            {
+                Debug.LogError(
+                    "Aucun emplacement de test assigné."
+                );
+
+                return;
+            }
+
+            Debug.Log(
+                "Test déplacement vers : " +
+                emplacementTest.name
+            );
+
+            robot.AllerVers(
+                emplacementTest.Position
+            );
+
+            return;
+        }
+
+
+        // ==============================
+        // TON ANCIEN TEST AVEC COMMANDE
+        // ==============================
+
         if (!lancerTestAuDemarrage)
             return;
-
 
         if (robot == null)
         {
@@ -264,9 +310,7 @@ public class Entrepot : MonoBehaviour
             return;
         }
 
-
-        if (zoneDepart == null ||
-            zoneDepot == null)
+        if (zoneDepart == null || zoneDepot == null)
         {
             Debug.LogError(
                 "La zone de départ ou la zone de dépôt n'est pas configurée."
@@ -274,7 +318,6 @@ public class Entrepot : MonoBehaviour
 
             return;
         }
-
 
         if (pieceTest == null ||
             pieceTest.EStockage == null)
@@ -285,7 +328,6 @@ public class Entrepot : MonoBehaviour
 
             return;
         }
-
 
         Commande commande =
             new Commande(idCommandeTest);
