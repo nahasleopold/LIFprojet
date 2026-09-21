@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Règles logiques communes de l'entrepôt.
+/// Ne dépend pas de la scène Unity.
+/// </summary>
 public static class ReglesEntrepot
 {
     public const int NombreAllees = 16;
-    public const int NombreSections = 7;
+    public const int NombreSections = 7; // A à G
     public const int NombreNiveaux = 4;
 
     public enum SensCouloir
@@ -30,18 +34,16 @@ public static class ReglesEntrepot
 
     public static bool EstIndexCouloir(int numeroAllee)
     {
-        return numeroAllee % 2 == 1
-            && numeroAllee >= 1
-            && numeroAllee <= NombreAllees - 1;
+        return numeroAllee % 2 == 1 &&
+               numeroAllee >= 1 &&
+               numeroAllee <= NombreAllees - 1;
     }
 
     public static SensCouloir ObtenirSensCouloir(int numeroAllee)
     {
         if (!EstIndexCouloir(numeroAllee))
-        {
             throw new ArgumentException(
                 $"{numeroAllee} n'est pas un index de couloir valide.");
-        }
 
         return numeroAllee % 4 == 1
             ? SensCouloir.Montant
@@ -52,10 +54,8 @@ public static class ReglesEntrepot
     {
         var modules = new List<int[]> { new[] { 1 } };
 
-        for (int numero = 2; numero <= NombreAllees - 2; numero += 2)
-        {
-            modules.Add(new[] { numero, numero + 1 });
-        }
+        for (int n = 2; n <= NombreAllees - 2; n += 2)
+            modules.Add(new[] { n, n + 1 });
 
         modules.Add(new[] { NombreAllees });
         return modules;
@@ -64,51 +64,38 @@ public static class ReglesEntrepot
     public static (int allee, char section, int niveau) AnalyserAdresse(string adresse)
     {
         if (string.IsNullOrWhiteSpace(adresse))
-        {
             throw new FormatException("L'adresse est vide.");
-        }
 
         string[] parties = adresse.Split('-');
 
-        if (parties.Length != 3
-            || parties[0].Length < 2
-            || parties[0][0] != 'A')
+        if (parties.Length != 3 ||
+            parties[0].Length < 2 ||
+            parties[0][0] != 'A')
         {
             throw new FormatException(
-                $"Adresse invalide : '{adresse}'. Format attendu : A6-C-2.");
+                $"Adresse invalide : '{adresse}'. Format attendu : A6-C-3.");
         }
 
         if (!int.TryParse(parties[0].Substring(1), out int allee))
-        {
-            throw new FormatException($"Allée invalide dans l'adresse '{adresse}'.");
-        }
+            throw new FormatException($"Allée invalide dans '{adresse}'.");
 
-        if (parties[1].Length != 1)
-        {
-            throw new FormatException($"Section invalide dans l'adresse '{adresse}'.");
-        }
+        string texteSection = parties[1].ToUpperInvariant();
+        if (texteSection.Length != 1)
+            throw new FormatException($"Section invalide dans '{adresse}'.");
 
-        char section = char.ToUpperInvariant(parties[1][0]);
+        char section = texteSection[0];
 
         if (!int.TryParse(parties[2], out int niveau))
-        {
-            throw new FormatException($"Niveau invalide dans l'adresse '{adresse}'.");
-        }
+            throw new FormatException($"Niveau invalide dans '{adresse}'.");
 
         if (allee < 1 || allee > NombreAllees)
-        {
-            throw new ArgumentOutOfRangeException(nameof(adresse), $"Allée hors limites : A{allee}.");
-        }
+            throw new ArgumentOutOfRangeException(nameof(adresse), $"Allée hors bornes : A{allee}.");
 
         if (section < 'A' || section > 'G')
-        {
-            throw new ArgumentOutOfRangeException(nameof(adresse), $"Section hors limites : {section}.");
-        }
+            throw new ArgumentOutOfRangeException(nameof(adresse), $"Section hors bornes : {section}. Attendu A à G.");
 
         if (niveau < 1 || niveau > NombreNiveaux)
-        {
-            throw new ArgumentOutOfRangeException(nameof(adresse), $"Niveau hors limites : {niveau}.");
-        }
+            throw new ArgumentOutOfRangeException(nameof(adresse), $"Niveau hors bornes : {niveau}. Attendu 1 à {NombreNiveaux}.");
 
         return (allee, section, niveau);
     }
