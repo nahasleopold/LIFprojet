@@ -6611,13 +6611,13 @@ MonoBehaviour:
   rayonnages: {fileID: 137875371}
   testerDeplacementSimple: 1
   emplacementTest: {fileID: 734101617}
-  lancerTestAuDemarrage: 0
+  lancerTestAuDemarrage: 1
   idCommandeTest: 1
   pieceTest:
-    idPc: 0
-    nom: 
-    poids: 0
-    eStockage: {fileID: 0}
+    idPiece: 1
+    nom: frigo
+    poids: 120
+    emplacementStockage: {fileID: 1832492351}
 --- !u!1 &395914889
 GameObject:
   m_ObjectHideFlags: 0
@@ -23748,7 +23748,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 7b7fec499143153449ddce9075e8518d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!23 &1258817023
 MeshRenderer:
@@ -31924,10 +31924,10 @@ MonoBehaviour:
   lancerTestAuDemarrage: 0
   idCommandeTest: 1
   pieceTest:
-    idPc: 0
+    idPiece: 0
     nom: 
     poids: 0
-    eStockage: {fileID: 0}
+    emplacementStockage: {fileID: 0}
 --- !u!1 &1694731309
 GameObject:
   m_ObjectHideFlags: 0
