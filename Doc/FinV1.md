@@ -25,7 +25,7 @@ c'est a dire si le temps nous le permet et on passe nos v2 et v3 rapidement nous
 - Automisation ia donc les robots qui vont apprendre a faire le chemin grace a le training
 - Cree une base de donnes que l'on va liee aux projets, et donc une application telephone
 - Application pour pouvoir commander "x" element et donc prednre les pieces correspondantes.
-- Liaison api pour base de donnes et applciation
+- Liaison api pour base de donnes et application
 
 Tout cela est pour rajouter de la valeur a notre projet et montrer l'utilisation de fonctions
 reels dans le monde des entreprises. 
