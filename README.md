@@ -1,4 +1,4 @@
-[suivi de la premiere semaine](Doc/Suivi1.md)
+[suivi de la premiere semaine](Doc/Suivi1.md) [README de la fin de la V1](Doc/FinV1.md)
 
 ## Première version du projet — V1
 
